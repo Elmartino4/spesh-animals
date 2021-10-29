@@ -1,9 +1,6 @@
-# Fabric Example Mod
+# Spesh Animals
+A mod which adds side effects to breeding animals, while they are under a potion effect, this will modify their offspring's genetics.
 
-## Setup
+Animals with unstable genetics, can change in size, speed, health, and power (attack damage)
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Larger animals will also drop more loot

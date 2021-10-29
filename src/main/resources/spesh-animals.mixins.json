@@ -4,6 +4,17 @@
   "package": "github.elmartino4.speshanimals.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "AnimalEntityMixin",
+    "AxolotlEntityMixin",
+    "BeeEntityMixin",
+    "CatEntityMixin",
+    "FishEntityMixin",
+    "HoglinEntityMixin",
+    "LivingEntityMixin",
+    "MobEntityMixin",
+    "OcelotEntityMixin",
+    "PlayerEntityMixin",
+    "RabbitEntityMixin"
   ],
   "client": [
   ],
