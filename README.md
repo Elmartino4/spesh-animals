@@ -4,3 +4,7 @@ A mod which adds side effects to breeding animals, while they are under a potion
 Animals with unstable genetics, can change in size, speed, health, and power (attack damage)
 
 Larger animals will also drop more loot
+
+Right click on animals to get thier stats in a book
+
+**Requires pehkui**
