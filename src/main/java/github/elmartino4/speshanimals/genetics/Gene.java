@@ -1,8 +1,6 @@
-package github.elmartino4.speshanimals;
+package github.elmartino4.speshanimals.genetics;
 
 import net.minecraft.server.world.ServerWorld;
-import org.jetbrains.annotations.Nullable;
-import org.lwjgl.system.CallbackI;
 
 public class Gene {
     public static final double MIN_DIFFERENCE = 1;

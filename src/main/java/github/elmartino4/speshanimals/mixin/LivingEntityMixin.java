@@ -32,7 +32,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     private void dropLootStacks(ItemStack itmStack){
         double count = itmStack.getCount();
-        double multiplier = ((AnimalInterface) (Object) this).processSize();
+        double multiplier = ((AnimalInterface) (Object) this).getGenetics().processSize();
         count *= multiplier * multiplier * multiplier;
         dropStack(new ItemStack(itmStack.getItem(), (int)Math.ceil(count)));
     }

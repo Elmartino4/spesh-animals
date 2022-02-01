@@ -1,34 +1,30 @@
 package github.elmartino4.speshanimals.mixin;
 
-import github.elmartino4.speshanimals.Gene;
 import github.elmartino4.speshanimals.util.AnimalInterface;
+import github.elmartino4.speshanimals.util.FishInterface;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import virtuoel.pehkui.api.ScaleData;
 import virtuoel.pehkui.api.ScaleType;
-
-import java.io.IOException;
+import virtuoel.pehkui.api.ScaleTypes;
 
 @Mixin(FishEntity.class)
-public abstract class FishEntityMixin extends WaterCreatureEntity implements AnimalInterface {
+public abstract class FishEntityMixin extends WaterCreatureEntity implements FishInterface {
     private static final TrackedData<Float> GENETICS = DataTracker.registerData(FishEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
     protected FishEntityMixin(EntityType<? extends WaterCreatureEntity> entityType, World world) {
@@ -41,7 +37,7 @@ public abstract class FishEntityMixin extends WaterCreatureEntity implements Ani
     }
 
     private void scale(){
-        ScaleData baseData = ScaleType.BASE.getScaleData((Entity) (Object) this);
+        ScaleData baseData = ScaleTypes.BASE.getScaleData((Entity) (Object) this);
         baseData.resetScale();
         baseData.setScale(getDataTracker().get(GENETICS));
         baseData.onUpdate();

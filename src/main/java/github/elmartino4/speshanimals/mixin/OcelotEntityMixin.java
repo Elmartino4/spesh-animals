@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class OcelotEntityMixin {
     @Inject(method = "mobTick", at = @At("HEAD"))
     private void mobTick(CallbackInfo ci){
-        ((AnimalInterface) (Object) this).speshTick();
+        ((AnimalInterface) (Object) this).getGenetics().speshTick();
     }
 }

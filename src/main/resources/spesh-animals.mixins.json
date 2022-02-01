@@ -11,10 +11,10 @@
     "FishEntityMixin",
     "HoglinEntityMixin",
     "LivingEntityMixin",
-    "MobEntityMixin",
     "OcelotEntityMixin",
     "PlayerEntityMixin",
-    "RabbitEntityMixin"
+    "RabbitEntityMixin",
+    "ZoglinMixin"
   ],
   "client": [
   ],

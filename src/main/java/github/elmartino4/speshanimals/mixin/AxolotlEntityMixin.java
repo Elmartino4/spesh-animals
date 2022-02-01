@@ -1,9 +1,9 @@
 package github.elmartino4.speshanimals.mixin;
 
-import github.elmartino4.speshanimals.Gene;
-import github.elmartino4.speshanimals.SpeshAnimals;
+import github.elmartino4.speshanimals.genetics.Genetics;
 import github.elmartino4.speshanimals.util.AnimalInterface;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.AxolotlEntity;
 import net.minecraft.item.ItemStack;
@@ -22,26 +22,21 @@ public abstract class AxolotlEntityMixin extends AnimalEntity {
 
     @Inject(method = "copyDataToStack", at = @At("HEAD"))
     private void onBucket(ItemStack stack, CallbackInfo ci){
-        stack.getOrCreateNbt().putFloat("genetics", ((AnimalInterface) (Object) this).getGenetics());
-        stack.getOrCreateNbt().putFloat("stability", ((AnimalInterface) (Object) this).getStability());
+        stack.getOrCreateNbt().putFloat("genetics", ((AnimalInterface) (Object) this).getGenetics().GENETICS);
+        stack.getOrCreateNbt().putFloat("stability", ((AnimalInterface) (Object) this).getGenetics().STABILITY);
     }
 
     @Inject(method = "mobTick", at = @At("HEAD"))
     private void mobTick(CallbackInfo ci){
-        ((AnimalInterface) (Object) this).speshTick();
+        ((AnimalInterface) (Object) this).getGenetics().speshTick();
     }
 
     @Inject(method = "copyDataFromNbt", at = @At("HEAD"))
     private void onUseBucket(NbtCompound nbt, CallbackInfo ci){
-        double genetics = nbt.getFloat("genetics");
-        double stability = nbt.getFloat("stability");
+        ((AnimalInterface) (Object) this).setGenetics(new Genetics(world, (MobEntity) (Object) this));
 
-        if(!nbt.contains("genetics")) genetics = (random.nextFloat() - 0.5) * Gene.MIN_DIFFERENCE * 3.0F;
-        if(!nbt.contains("stability")) stability = 0.001F;
+        ((AnimalInterface) (Object) this).getGenetics().readNbt(nbt);
 
-        ((AnimalInterface) (Object) this).setGenetics((float)genetics);
-        ((AnimalInterface) (Object) this).setStability((float)stability);
-
-        ((AnimalInterface)(Object) this).loadSize(world);
+        ((AnimalInterface)(Object) this).getGenetics().loadSize();
     }
 }
