@@ -56,8 +56,8 @@ public class Genetics {
         genetics *= 0.5;
         genetics += diff;
 
-        GENETICS = stability;
-        STABILITY = genetics;
+        GENETICS = genetics;
+        STABILITY = stability;
         this.world = world;
         this.entity = entity;
     }
@@ -107,6 +107,9 @@ public class Genetics {
     }
 
     public NbtList bookData() {
+        System.out.println(GENETICS);
+        System.out.println(STABILITY);
+
         NbtList out = new NbtList();
         String page1Str = """
                 [
@@ -181,7 +184,7 @@ public class Genetics {
                 double[] explosivityValues = explosivity.getValues((ServerWorld) world, GENETICS);
 
                 if (isExplosive() && !entity.inPowderSnow) {
-                    if ((explosivityValues[0] + 1) / 8D > world.random.nextFloat() || ((Entity) (Object) this).getFireTicks() > 0) {
+                    if ((explosivityValues[0] + 1) / 8D > world.random.nextFloat() || (entity).getFireTicks() > 0) {
                         explosivityValues[1] += 1;
                         explosivityValues[1] *= 1.5;
 
@@ -223,9 +226,7 @@ public class Genetics {
 
         double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
 
-        out = Math.min(out, 3.5D) * STABILITY;
-
-        return (float) out;
+        return (float) Math.pow(Math.min(out, 3.5D), STABILITY);
     }
 
     protected float processSpeed() {
@@ -233,7 +234,7 @@ public class Genetics {
 
         double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
 
-        return (float) Math.min(out, 3.5D) * STABILITY;
+        return (float) Math.pow(Math.min(out, 3.5D), STABILITY);
     }
 
     protected float processHealth() {
@@ -241,7 +242,7 @@ public class Genetics {
 
         double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
 
-        return (float) Math.min(out, 4D) * STABILITY;
+        return (float) Math.pow(Math.min(out, 4D), STABILITY);
     }
 
     protected float processPower() {
@@ -249,7 +250,7 @@ public class Genetics {
 
         double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
 
-        return (float) Math.min(out, 12D) * STABILITY;
+        return (float) Math.pow(Math.min(out, 12D), STABILITY);
     }
 
     protected StatusEffect getEffect() {

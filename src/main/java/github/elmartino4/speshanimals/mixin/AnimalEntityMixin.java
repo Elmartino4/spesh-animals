@@ -29,7 +29,7 @@ public abstract class AnimalEntityMixin extends LivingEntity implements AnimalIn
     @Inject(method = "<init>", at = @At("TAIL"))
     private void initSizing(EntityType<? extends AnimalEntity> entityType, World world, CallbackInfo ci){
         genetics = new Genetics(world, (MobEntity) (Object) this);
-        genetics.loadSize();
+        //genetics.loadSize();
     }
 
     protected AnimalEntityMixin(EntityType<? extends PassiveEntity> entityType, World world) {
