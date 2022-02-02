@@ -120,7 +120,7 @@ public class Genetics {
                     {"text":"Health - %.1f\\n","bold":false},
                     {"text":"Power - %.1f\\n","bold":false},
                     {"text":"------------\\n","bold":false},
-                    {"text":"Stability - %.3f\\n","bold":false},
+                    {"text":"Instability - %.3f\\n","bold":false},
                     {"text":"Gene - %.2f\\n","bold":false},
                     {"text":"------------\\n","bold":false},
                     {"text":"%s Sick\\n","bold":false},
@@ -163,7 +163,7 @@ public class Genetics {
         double[] diseaseValues = disease.getValues((ServerWorld) world, GENETICS);
 
 
-        int duration = (int) (-Math.log(diseaseValues[2] * 0.5 + 0.5) * 80.0D);
+        int duration = (int) (-Math.log(diseaseValues[2] * 0.5 + 0.5) * 160.0D);
         int amplifier = (int) (-Math.log(Math.abs(diseaseValues[3])) * 3.0D + 1.0D);
 
         out.add(NbtString.of(String.format(page2Str,
@@ -200,7 +200,7 @@ public class Genetics {
                     if ((diseaseValues[0] + 1) / 4.0 > world.random.nextFloat()) {
                         AreaEffectCloudEntity effectCloud = new AreaEffectCloudEntity(world, entity.getX(), entity.getY(), entity.getZ());
                         effectCloud.setRadius((float) (1 - diseaseValues[0]) * 3.0F);
-                        int duration = (int) (-Math.log(diseaseValues[2] * 0.5 + 0.5) * 80.0D);
+                        int duration = (int) (-Math.log(diseaseValues[2] * 0.5 + 0.5) * 160.0D);
                         int amplifier = (int) (-Math.log(Math.abs(diseaseValues[3])) * 3.0D);
                         effectCloud.addEffect(new StatusEffectInstance(getEffect(), duration, amplifier));
 
@@ -222,27 +222,42 @@ public class Genetics {
     }
 
     public float processSize() {
-        double sizeOut = size.getValue((ServerWorld) world, GENETICS);
+        double sizeOut = size.getValue((ServerWorld) world, GENETICS) + 1;
+        double size;
 
-        double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
+        if (sizeOut > 1) {
+            size = STABILITY * Math.log(sizeOut) + 1;
+        } else {
+            size = Math.pow(Math.E, STABILITY * (sizeOut - 1));
+        }
 
-        return (float) Math.pow(Math.min(out, 3.5D), STABILITY);
+        return Math.max((float) size, 0.25F);
     }
 
     protected float processSpeed() {
-        double sizeOut = motion.getValue((ServerWorld) world, GENETICS);
+        double sizeOut = motion.getValue((ServerWorld) world, GENETICS) + 1;
+        double size;
 
-        double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
+        if (sizeOut > 1) {
+            size = STABILITY * Math.log(sizeOut) + 1;
+        } else {
+            size = Math.pow(Math.E, STABILITY * (sizeOut - 1));
+        }
 
-        return (float) Math.pow(Math.min(out, 3.5D), STABILITY);
+        return (float) size;
     }
 
     protected float processHealth() {
-        double sizeOut = health.getValue((ServerWorld) world, GENETICS);
+        double sizeOut = health.getValue((ServerWorld) world, GENETICS) + 1;
+        double size;
 
-        double out = -Math.log(sizeOut / 2.0 + 0.5) / 0.693;
+        if (sizeOut > 1) {
+            size = STABILITY * Math.log(sizeOut) + 1;
+        } else {
+            size = Math.pow(Math.E, STABILITY * (sizeOut - 1));
+        }
 
-        return (float) Math.pow(Math.min(out, 4D), STABILITY);
+        return (float) size;
     }
 
     protected float processPower() {
